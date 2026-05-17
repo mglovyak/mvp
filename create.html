@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash-визитка — Создание</title>
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #1a1a1a;
+            --text: #ffffff;
+            --text-secondary: #cccccc;
+            --accent: #8e44ad;
+            --accent-hover: #9b59b6;
+            --border: #2a2a2a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ------ header ------ */
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo i { font-size: 1.8rem; }
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: var(--accent); }
+
+        /* ------ main content ------ */
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .form-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .form-card h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .form-card h1 i { color: var(--accent); }
+        .subtitle { color: var(--text-secondary); margin-bottom: 2rem; }
+
+        label {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+        input, select {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1.2rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.2s;
+        }
+        input:focus, select:focus { border-color: var(--accent); }
+        input::placeholder { color: #555; }
+
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.2s;
+            width: 100%;
+            justify-content: center;
+        }
+        .btn:hover { background: var(--accent-hover); }
+        .btn i { font-size: 1.2rem; }
+
+        /* ------ footer ------ */
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/" class="logo">
+            <i class="fa-solid fa-bolt"></i> FlashVisit
+        </a>
+    </header>
+
+    <main>
+        <div class="form-card">
+            <h1><i class="fa-solid fa-address-card"></i> Новая визитка</h1>
+            <p class="subtitle">Создай временную страницу с контактами. Она исчезнет через заданный срок.</p>
+
+            <form method="POST">
+                <label>Имя *</label>
+                <input type="text" name="name" placeholder="Твоё имя или ник" required>
+
+                <label>О себе</label>
+                <input type="text" name="about" placeholder="Например: ищу партнёра для стартапа">
+
+                <label>Telegram</label>
+                <input type="url" name="tg" placeholder="https://t.me/username">
+
+                <label>WhatsApp</label>
+                <input type="url" name="wa" placeholder="https://wa.me/79991234567">
+
+                <label>Другая ссылка (LinkedIn, сайт)</label>
+                <input type="url" name="other" placeholder="https://...">
+
+                <label>Время жизни</label>
+                <select name="lifetime" required>
+                    <option value="1">1 час</option>
+                    <option value="6">6 часов</option>
+                    <option value="24" selected>24 часа</option>
+                    <option value="168">7 дней</option>
+                </select>
+
+                <button type="submit" class="btn">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Создать визитку
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 FlashVisit — Визитки с самоуничтожением. <a href="/">Создать свою</a></p>
+    </footer>
+</body>
+</html>

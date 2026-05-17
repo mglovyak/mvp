@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Визитка {{ card.name }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #1a1a1a;
+            --text: #ffffff;
+            --text-secondary: #cccccc;
+            --accent: #8e44ad;
+            --accent-hover: #9b59b6;
+            --border: #2a2a2a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header, footer {
+            background: var(--surface);
+            border-color: var(--border);
+            border-style: solid;
+        }
+        header {
+            border-bottom-width: 1px;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo i { font-size: 1.8rem; }
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: var(--accent); }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        /* сама карточка */
+        .business-card {
+            background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+            border-radius: 24px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        /* декоративная полоска сверху */
+        .business-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 24px 24px 0 0;
+        }
+
+        .name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 1rem 0 0.3rem;
+        }
+        .about {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        /* QR код */
+        .qr-section {
+            margin: 1.5rem 0;
+        }
+        .qr-section img {
+            width: 160px;
+            height: 160px;
+            border-radius: 12px;
+            background: white;
+            padding: 5px;
+        }
+
+        /* кнопки соцсетей */
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+            margin: 1.5rem 0 0.5rem;
+        }
+        .btn-social {
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.2s, transform 0.1s;
+            font-size: 0.95rem;
+        }
+        .btn-social:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+        .btn-social i { font-size: 1.2rem; }
+
+        .expiry-info {
+            margin-top: 1.2rem;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        footer {
+            border-top-width: 1px;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/" class="logo">
+            <i class="fa-solid fa-bolt"></i> FlashVisit
+        </a>
+    
+    </header>
+
+    <main>
+        <div class="business-card">
+            <h1 class="name">{{ card.name }}</h1>
+            {% if card.about %}<p class="about">{{ card.about }}</p>{% endif %}
+
+            <div class="qr-section">
+                <img src="{{ qr_url }}" alt="QR-код визитки">
+            </div>
+
+            <div class="links">
+                {% if card.link_tg %}
+                    <a href="{{ card.link_tg }}" target="_blank" class="btn-social">
+                        <i class="fa-brands fa-telegram"></i> Telegram
+                    </a>
+                {% endif %}
+                {% if card.link_wa %}
+                    <a href="{{ card.link_wa }}" target="_blank" class="btn-social">
+                        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                    </a>
+                {% endif %}
+                {% if card.link_other %}
+                    <a href="{{ card.link_other }}" target="_blank" class="btn-social">
+                        <i class="fa-solid fa-globe"></i> Ссылка
+                    </a>
+                {% endif %}
+            </div>
+
+            <p class="expiry-info">⏳ Действительна до: {{ card.expires_at[:19] }}</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 FlashVisit — Визитки с самоуничтожением. <a href="/">Создать свою</a></p>
+    </footer>
+</body>
+</html>
